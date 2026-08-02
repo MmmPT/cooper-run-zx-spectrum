@@ -1,0 +1,3 @@
+e3b21102475500d788d38ed1fb19154738fef8460dc663713b9f395ed6912d31  release/CooperRun.tap
+bb99b581884a904df7c04ed3f94616a68b7af422a13e88069fafb8adde9096a5  release/CooperRun.bin
+30b9b5d72963757558d1cdb1df5cd653299a208a980327c6a734ab3fbeead91b  release/Cooper_Run_ZX_Spectrum_v1.0.zip

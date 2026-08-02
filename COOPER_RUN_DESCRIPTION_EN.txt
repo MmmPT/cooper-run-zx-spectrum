@@ -1,0 +1,25 @@
+COOPER RUN
+
+Short description
+-----------------
+Race through five timed stages, overtake rival cars and fight from 30th position to first in this vertical arcade racer for the ZX Spectrum.
+
+Full description
+----------------
+COOPER RUN is an original vertical arcade racing game for the ZX Spectrum.
+
+Start in 30th position and race through five stages of 1100 metres. Beat the clock on every stage, overtake the rival cars and reach first place to win. Ordinary traffic does not improve your position, but it can still block the road and destroy a promising run.
+
+Control your speed through straights and curves, recover from collisions and off-road crashes, and choose between Easy, Normal and Hard difficulty. Keyboard and Kempston joystick controls are supported, with AY music available on compatible systems.
+
+Features
+--------
+- Five timed stages of 1100 metres
+- Race from 30th position to first
+- Rival cars and independent traffic
+- Curves, acceleration, braking and collisions
+- Easy, Normal and Hard difficulty settings
+- Keyboard and Kempston joystick support
+- Records table with player initials
+- ZX Spectrum 48K compatible
+- AY music on compatible 128K systems
