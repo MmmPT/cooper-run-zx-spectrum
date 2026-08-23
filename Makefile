@@ -7,9 +7,9 @@ RELEASE_TAP := $(BUILD_DIR)/CooperRun.tap
 
 all: $(RELEASE_TAP)
 
-$(BUILD_DIR)/cooper.bin: src/cooper.asm
+$(BUILD_DIR)/cooper.bin: src/cooper.asm src/cooperlogo.bin
 	mkdir -p $(BUILD_DIR)
-	$(PASMO) src/cooper.asm $(BUILD_DIR)/cooper.bin $(BUILD_DIR)/cooper.sym
+	cd src && $(PASMO) cooper.asm ../$(BUILD_DIR)/cooper.bin ../$(BUILD_DIR)/cooper.sym
 
 $(RELEASE_TAP): $(BUILD_DIR)/cooper.bin assets/basic_loader.bin assets/loading_screen.scr tools/build_tap.py
 	$(PYTHON) tools/build_tap.py \
@@ -20,12 +20,12 @@ $(RELEASE_TAP): $(BUILD_DIR)/cooper.bin assets/basic_loader.bin assets/loading_s
 
 verify-bin: $(BUILD_DIR)/cooper.bin
 	cmp $(BUILD_DIR)/cooper.bin release/CooperRun.bin
-	@echo "Compiled binary matches the v1.0 release binary."
+	@echo "Compiled binary matches the v1.1 release binary."
 
 verify: $(RELEASE_TAP)
 	cmp $(RELEASE_TAP) release/CooperRun.tap
 	sha256sum $(RELEASE_TAP)
-	@echo "Rebuilt TAP matches the v1.0 release exactly."
+	@echo "Rebuilt TAP matches the v1.1 release exactly."
 
 clean:
 	rm -rf $(BUILD_DIR)

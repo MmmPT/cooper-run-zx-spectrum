@@ -49,12 +49,18 @@ ZONE_GRN  equ 3
 ZATTR_RED equ 0x50          ; cores do semaforo (fundo brilhante, papel)
 ZATTR_YEL equ 0x70
 ZATTR_GRN equ 0x60
-LOGOBUF   equ 0xD800           ; copia do logo: 1792 bitmap + 224 atributos.
-                                 ; Subiu de 0xD000 quando os carros novos
-                                 ; encheram o espaco: o buffer e' preenchido em
-                                 ; execucao pelo save_logo, nao vem na fita, por
-                                 ; isso muda-se sem mexer no .tap. Acaba em
-                                 ; 0xDFDF, bem abaixo da pilha (0xFFE0)
+LOGOBUF   equ 0xD0A6           ; logo do menu, 2592 bytes: 2304 de bitmap e 288
+                                 ; de atributos (9 linhas de caracteres).
+                                 ; Estava em 0xD800 e era preenchido em execucao
+                                 ; pelo save_logo, que copiava as 7 linhas de topo
+                                 ; do ecra de loading. Na 1.1 o logo passou a ser
+                                 ; um desenho proprio (coopershort.scr), que nao
+                                 ; tem nada a ver com o ecra de loading, por isso
+                                 ; vem pronto na fita: fica colado ao fim do
+                                 ; codigo (ver o ORG la' em baixo) e o save_logo
+                                 ; morreu. Se o codigo crescer, este endereco e
+                                 ; o ORG do fim tem de subir juntos. Acaba em
+                                 ; 0xDAC5, bem abaixo da pilha (0xFFE0)
                                 ; (o codigo cresceu para la de 0xC000 nesta
                                 ; sessao; margem de folga ate ao proximo teto)
 PATPG     equ 0x88             ; pagina das tabelas de padroes
@@ -2806,44 +2812,77 @@ segtab:
 ; ===============================================================
 ; MENU, ECRAS DE FIM, RECORDES
 ; ===============================================================
-; --- guardar/repor o logo do ecra de loading (7 linhas de topo) ---
-save_logo: ld hl,0x4000
-          ld de,LOGOBUF
-          ld b,8
-sl_b:     push bc
-          ld bc,224            ; 7 linhas de caracteres por bloco
-          ldir
-          ld a,l               ; saltar a linha de caracteres 7
-          add a,32
-          ld l,a
-          jr nc,sl_nc
-          inc h
-sl_nc:    pop bc
-          djnz sl_b
-          ld hl,0x5800
-          ld de,LOGOBUF+1792
-          ld bc,224
-          ldir
-          ret
+; --- repor o logo do menu ---
+; O save_logo copiava as 7 linhas de topo do ecra de loading para o LOGOBUF.
+; Deixou de fazer sentido na 1.1: o menu tem agora logo proprio, desenhado a'
+; parte, e o ecra de loading e' outro desenho. O logo vem pronto na fita (o
+; incbin no fim do ficheiro) e esta rotina so' retorna - o chamador em start:
+; ficou como estava. Os nop a seguir ao ret sao enchimento: o binario foi
+; remendado a' mao (nao ha' assembler Z80 nesta maquina) e a rotina tinha de
+; ficar com os 36 bytes originais para nao deslocar mais nada. Nunca correm.
+save_logo: ret
+          nop
+          nop
+          nop
+          nop
+          nop
+          nop
+          nop
+          nop
+          nop
+          nop
+          nop
+          nop
+          nop
+          nop
+          nop
+          nop
+          nop
+          nop
+          nop
+          nop
+          nop
+          nop
+          nop
+          nop
+          nop
+          nop
+          nop
+          nop
+          nop
+          nop
+          nop
+          nop
+          nop
+          nop
+          nop
 
+; O logo ocupa 9 linhas de caracteres (eram 7): o "RUN" do desenho novo so'
+; acaba na linha 8. O texto do menu comeca na linha 9, portanto encaixa a'
+; justa. O blob ja' vem arrumado para esta copia ser o mais curta possivel:
+; as linhas 0..7 sao o terco de cima do ecra e vao de uma assentada, e so' a
+; linha 8 - que ja' e' o 2o terco - e' que vai em 8 pedacos de 32 bytes.
+; O contador e' o A, que o LDIR nao toca: assim o B fica sempre a 0 e basta
+; um "ld c,32" para armar cada pedaco. Tambem isto leva 4 nop de enchimento.
 show_logo: ld hl,LOGOBUF
           ld de,0x4000
-          ld b,8
-sh_b:     push bc
-          ld bc,224
+          ld bc,2048           ; linhas 0..7
           ldir
-          ld a,e
-          add a,32
-          ld e,a
-          jr nc,sh_nc
-          inc d
-sh_nc:    pop bc
-          djnz sh_b
-          ld hl,LOGOBUF+1792
-          ld de,0x5800
-          ld bc,224
+          ld a,8               ; linha 8: 8 linhas de pixels no 2o terco
+sh_b:     ld c,32
+          ldir
+          ld e,0               ; e estava em 0x20 -> +224 e' o mesmo que
+          inc d                ; zerar o e e subir o d
+          dec a
+          jr nz,sh_b
+          ld de,0x5800         ; hl ja' aponta aos atributos guardados
+          ld bc,288            ; 9 linhas de atributos
           ldir
           ret
+          nop
+          nop
+          nop
+          nop
 
 ; --- A = atributo -> pinta o ecra todo ---
 fill_attrs: ld hl,0x5800
@@ -6499,3 +6538,17 @@ blip_set: add a,a              ; 2 bytes por entrada
           jp ay_out
 bliptab:  dw 0,135,150,165,180,195,210,225,240
 
+
+; ===============================================================
+; LOGO DO MENU
+; ===============================================================
+; As 9 linhas de topo do coopershort.scr, ja' arrumadas para o show_logo as
+; despejar sem contas: 2048 bytes do terco de cima tal e qual (linhas 0..7),
+; depois 256 bytes da linha 8 (8 pedacos de 32, um por linha de pixels, sem os
+; saltos do entrelacado) e por fim 288 bytes de atributos.
+; Gerado a partir do coopershort.scr - nao editar a' mao.
+; O ORG e' fixo de proposito: assim o blob cai sempre onde o LOGOBUF aponta,
+; independentemente do tamanho do codigo. Hoje o codigo acaba em 0xD0A5, por
+; isso nao fica buraco nenhum.
+          ORG 0xD0A6
+LOGODATA: incbin "cooperlogo.bin"

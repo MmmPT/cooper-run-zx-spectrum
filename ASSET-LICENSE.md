@@ -1,7 +1,14 @@
-# Asset license
+# Asset licensing
 
-Copyright © 2026 MMM. All rights reserved.
+The MIT License in this repository applies only to the source code and software
+utilities covered by `LICENSE`.
 
-The MIT License in this repository applies only to source code in `src/` and `tools/`. It does **not** grant permission to reuse or redistribute the COOPER RUN name, loading artwork, screenshots, development reference images, compiled TAP/BIN files or other non-code assets outside unmodified copies of this repository or the official COOPER RUN release package.
+The COOPER RUN title, compiled game releases, screenshots, artwork and other
+non-code assets are not granted under the MIT License unless explicitly stated.
 
-Permission for other uses may be requested through the repository owner, MmmPT.
+The **COOPER RUN v1.1 loading screen artwork is credited to Mário Viegas**.
+Its inclusion in this repository is for the COOPER RUN release and does not
+place that artwork under the MIT License.
+
+The repository owner does not grant third-party reuse rights for artwork or
+other non-code assets merely by publishing them in this repository.

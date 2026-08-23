@@ -1,0 +1,18 @@
+COOPER RUN v1.1 — GitHub update
+================================
+
+This archive contains only the files that need to be added or replaced in the
+existing MmmPT/cooper-run-zx-spectrum repository.
+
+Recommended commit message:
+Release Cooper Run v1.1
+
+Optional description:
+Add the new loading screen by Mário Viegas, redesigned main menu, v1.1 TAP,
+source files, documentation and updated GitHub Pages assets.
+
+Keep the existing v1.0 history and RELEASE_NOTES_v1.0.md.
+GitHub Pages should remain configured as: main branch /docs.
+
+Public page:
+https://mmmpt.github.io/cooper-run-zx-spectrum/

@@ -8,6 +8,11 @@ five timed stages, overtake the rival cars and climb from 30th position to
 first. Ordinary traffic does not count towards your race position, but it can
 still ruin a perfect run.
 
+VERSION 1.1
+-----------
+Version 1.1 introduces a new loading screen and a redesigned main-menu logo
+while retaining the established five-stage racing gameplay.
+
 CONTROLS
 --------
 Q                  Accelerate
@@ -41,13 +46,18 @@ COMPATIBILITY
 ZX Spectrum 48K or compatible model/emulator. Compatible 128K systems can use
 AY music; the game remains playable on a standard 48K machine.
 
-CREDITS
--------
+CREDITS AND AI DISCLOSURE
+-------------------------
 Game design and programming: MMM
-Claude AI was used as a programming assistant during development.
+Loading screen artwork: Mário Viegas
+Repository: MmmPT
+
+Claude AI was used as a programming assistant during development. Design
+choices, integration, testing and final release decisions were made by the
+author.
 
 VERSION
 -------
-Version 1.0 — 2026
+Version 1.1 — 23 August 2026
 Repository: https://github.com/MmmPT/cooper-run-zx-spectrum
 Website: https://mmmpt.github.io/cooper-run-zx-spectrum/
