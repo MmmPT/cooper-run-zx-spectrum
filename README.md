@@ -48,7 +48,7 @@ The main menu also lets you select difficulty, control method and music.
 
 ## Download and play
 
-Download [`Cooper_Run_ZX_Spectrum_v1.1.zip`](release/Cooper_Run_ZX_Spectrum_v1.1.zip),
+Download [`Cooper_Run_ZX_Spectrum_v1.1.zip`](https://github.com/MmmPT/cooper-run-zx-spectrum/releases/download/downloads-2026-10-31/Cooper_Run_ZX_Spectrum_v1.1.zip),
 extract it and load `CooperRun.tap` in a real ZX Spectrum or compatible emulator.
 
 On a real machine:
@@ -144,3 +144,9 @@ Source code in `src/` and `tools/` is released under the MIT License. The game
 title, artwork, screenshots, compiled releases and other non-code assets are not
 covered by the MIT License. The v1.1 loading screen artwork is credited to
 Mário Viegas. See [`LICENSE`](LICENSE) and [`ASSET-LICENSE.md`](ASSET-LICENSE.md).
+
+## Download statistics
+
+[Download statistics](https://github.com/MmmPT/cooper-run-zx-spectrum/releases/tag/downloads-2026-10-31) are recorded by GitHub for the release assets from **31 October 2026**. The game page shows the total across the downloadable formats. This counts file downloads, not unique players; earlier direct downloads, repository clones and browser play are not included.
+
+Release assets are retained to preserve their counters. For a future game update, publish a new release or use new asset filenames rather than replacing an existing asset, then update the download links.
