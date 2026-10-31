@@ -1,0 +1,37 @@
+name: Publish counted downloads
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/counted-downloads.yml'
+      - 'release/**'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: counted-downloads
+  cancel-in-progress: false
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Publish existing game files without resetting download counts
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          tag="downloads-2026-10-31"
+          if ! gh release view "$tag" >/dev/null 2>&1; then
+            gh release create "$tag" --target "$GITHUB_SHA" --title "Game downloads" --notes "Downloads through these release assets are counted by GitHub from 31 October 2026. Earlier direct downloads are not included. Counts are file downloads, not unique players." --latest
+          fi
+          for file in release/CooperRun.tap release/Cooper_Run_ZX_Spectrum_v1.1.zip; do
+            name="$(basename "$file")"
+            if gh release view "$tag" --json assets --jq '.assets[].name' | grep -Fxq "$name"; then
+              echo "Keeping existing asset and its counter: $name"
+            else
+              gh release upload "$tag" "$file"
+            fi
+          done
