@@ -32,7 +32,7 @@
         <p class="tagline">30TH TO 1ST.<br>FIVE STAGES.<br>NO EXCUSES.</p>
         <p class="intro">Race the clock, overtake the rivals and survive the traffic in an original vertical arcade racer.</p>
         <div class="actions">
-          <a class="button primary" href="downloads/Cooper_Run_ZX_Spectrum_v1.1.zip" download>Download v1.1</a>
+          <a class="button primary" href="https://github.com/MmmPT/cooper-run-zx-spectrum/releases/download/downloads-2026-10-31/Cooper_Run_ZX_Spectrum_v1.1.zip" download>Download v1.1</a>
           <a class="button secondary" href="https://github.com/MmmPT/cooper-run-zx-spectrum">View source</a>
         </div>
         <p class="micro">TAP format · 48K compatible · AY music on compatible systems</p>
@@ -105,7 +105,7 @@
         </div>
         <div class="source-actions">
           <a class="button primary" href="https://github.com/MmmPT/cooper-run-zx-spectrum">Browse the repository</a>
-          <a class="text-link" href="downloads/CooperRun.tap" download>Download TAP only →</a>
+          <a class="text-link" href="https://github.com/MmmPT/cooper-run-zx-spectrum/releases/download/downloads-2026-10-31/CooperRun.tap" download>Download TAP only →</a>
         </div>
       </div>
     </section>
@@ -125,5 +125,19 @@
     <p><strong>COOPER RUN v1.1</strong></p>
     <p class="copyright">© 2026 MMM · <a href="https://github.com/MmmPT/cooper-run-zx-spectrum">MmmPT on GitHub</a></p>
   </footer>
+<p style="text-align:center;font-size:0.85rem">Downloads since 31 Oct 2026: <span id="download-count">…</span> · <a href="https://github.com/MmmPT/cooper-run-zx-spectrum/releases/tag/downloads-2026-10-31">Download statistics</a><br><small>File downloads across all formats; not unique players.</small></p>
+<script>
+(async () => {
+  try {
+    const response = await fetch('https://api.github.com/repos/MmmPT/cooper-run-zx-spectrum/releases?per_page=100');
+    if (!response.ok) throw new Error('Statistics unavailable');
+    const releases = await response.json();
+    const total = releases.filter(r => !r.draft && !r.prerelease).reduce((sum, r) => sum + r.assets.reduce((n, a) => n + a.download_count, 0), 0);
+    document.getElementById('download-count').textContent = total.toLocaleString();
+  } catch {
+    document.getElementById('download-count').textContent = 'temporarily unavailable';
+  }
+})();
+</script>
 </body>
 </html>
